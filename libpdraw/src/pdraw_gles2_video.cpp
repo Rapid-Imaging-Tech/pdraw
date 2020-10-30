@@ -29,7 +29,11 @@
  */
 
 #include "pdraw_gles2_video.hpp"
-
+//#include "LFClient.h"
+#include "LFClientEngine.h"
+//boost::shared_ptr<LFClient> _lfclient;
+LFClientEngine _lfClientEngine;
+//boost::shared_ptr<SViewData> _viewData;
 #ifdef USE_GLES2
 
 #	include "pdraw_session.hpp"
@@ -45,7 +49,15 @@
 #	define ULOG_TAG pdraw_gles2vid
 #	include <ulog.h>
 ULOG_DECLARE_TAG(pdraw_gles2vid);
+//extern vmeta_frame* dgdframeMeta;
 
+#include <boost/shared_ptr.hpp>
+#include <boost/thread/mutex.hpp>
+#include <boost/thread/thread.hpp>
+//boost::shared_ptr<SViewData> _frameViewData;
+extern boost::mutex sviewMutex;
+extern boost::shared_ptr<SViewData> _frameViewData;
+extern bool _viewDataInitialized;
 namespace Pdraw {
 
 
@@ -380,7 +392,28 @@ static const GLfloat zebraAvgWeights[9] = {0.077847f,
 					   0.123317f,
 					   0.077847f};
 
-
+boost::shared_ptr<SViewData> GetViewData(){
+    boost::shared_ptr<SViewData> viewData(new SViewData);
+    //_viewData.reset(new SViewData);
+    viewData->dfov = 45.0;
+    viewData->dFovVerticalAngle = 45.0;
+    viewData->dFovHorizontalAngle = 55.0;
+    viewData->dVehicleAltitude = 500.0;
+    //46.764594, -92.151235 Lincoln Park
+    //esko 46.685940, -92.363685
+    viewData->dVehicleLat =46.685940;
+    viewData->dVehicleLon =-92.363685;
+    viewData->dCameraPitch = -30.0;
+    viewData->dCameraHeading = 0.0;
+    viewData->dCameraRoll = 0.0;
+    viewData->dVehiclePitch = 0.0;
+    viewData->dVehicleHeading = 0.0;
+    viewData->dVehicleRoll = 0.0;
+    viewData->dVehicldAltitudeAGL = 5000.0;
+    return viewData;
+    
+}
+//#include "ClientFactory.h"
 Gles2Video::Gles2Video(Session *session,
 		       GLuint defaultFbo,
 		       unsigned int firstTexUnit)
@@ -391,6 +424,23 @@ Gles2Video::Gles2Video(Session *session,
 	GLint success = 0;
 	unsigned int i;
 
+    _lfClientEngine.InitShaders();
+//    _viewData.reset(new SViewData);
+//    _viewData->dfov = 45.0;
+//    _viewData->dFovVerticalAngle = 45.0;
+//    _viewData->dFovHorizontalAngle = 55.0;
+//    _viewData->dVehicleAltitude = 5000.0;
+//    //46.764594, -92.151235 Lincoln Park
+//    _viewData->dVehicleLat =46.764594;
+//    _viewData->dVehicleLon =-92.151235;
+//    _viewData->dCameraPitch = -30.0;
+//    _viewData->dCameraHeading = 0.0;
+//    _viewData->dCameraRoll = 0.0;
+//    _viewData->dVehiclePitch = 0.0;
+//    _viewData->dVehicleHeading = 0.0;
+//    _viewData->dVehicleRoll = 0.0;
+//    _viewData->dVehicldAltitudeAGL = 5000.0;
+    _lfClientEngine.Init();
 	mSession = session;
 	mMedia = NULL;
 	mVideoWidth = 0;
@@ -1751,6 +1801,7 @@ void Gles2Video::renderPadding(
 				    texCoords));
 	GLCHK(glEnableVertexAttribArray(mTexcoordHandle[colorConversion]));
 
+    //dgd:
 	GLCHK(glDrawArrays(GL_TRIANGLE_STRIP, 0, 4));
 
 	GLCHK(glDisableVertexAttribArray(mPositionHandle[colorConversion]));
@@ -1780,6 +1831,7 @@ void Gles2Video::renderPadding(
 	GLCHK(glUniform1fv(mBlurUniformWeights[0],
 			   GLES2_VIDEO_BLUR_TAP_COUNT,
 			   mPaddingBlurWeights));
+    //dgd
 	GLCHK(glDrawArrays(GL_TRIANGLE_STRIP, 0, 4));
 	GLCHK(glDisableVertexAttribArray(mBlurPositionHandle[0]));
 
@@ -1797,6 +1849,7 @@ void Gles2Video::renderPadding(
 	GLCHK(glUniform1fv(mBlurUniformWeights[1],
 			   GLES2_VIDEO_BLUR_TAP_COUNT,
 			   mPaddingBlurWeights));
+    //dgd
 	GLCHK(glDrawArrays(GL_TRIANGLE_STRIP, 0, 4));
 	GLCHK(glDisableVertexAttribArray(mBlurPositionHandle[1]));
 
@@ -1816,6 +1869,7 @@ void Gles2Video::renderPadding(
 	GLCHK(glUniform1fv(mBlurUniformWeights[0],
 			   GLES2_VIDEO_BLUR_TAP_COUNT,
 			   mPaddingBlurWeights));
+    //dgd
 	GLCHK(glDrawArrays(GL_TRIANGLE_STRIP, 0, 4));
 	GLCHK(glDisableVertexAttribArray(mBlurPositionHandle[0]));
 
@@ -1833,6 +1887,7 @@ void Gles2Video::renderPadding(
 	GLCHK(glUniform1fv(mBlurUniformWeights[1],
 			   GLES2_VIDEO_BLUR_TAP_COUNT,
 			   mPaddingBlurWeights));
+    //dgd
 	GLCHK(glDrawArrays(GL_TRIANGLE_STRIP, 0, 4));
 	GLCHK(glDisableVertexAttribArray(mBlurPositionHandle[1]));
 
@@ -1916,6 +1971,7 @@ void Gles2Video::renderPadding(
 	GLCHK(glEnableVertexAttribArray(
 		mTexcoordHandle[GLES2_VIDEO_COLOR_CONVERSION_NONE]));
 
+    //dgd
 	GLCHK(glDrawArrays(GL_TRIANGLE_STRIP, 0, 4));
 
 	GLCHK(glDisableVertexAttribArray(
@@ -2363,6 +2419,7 @@ void Gles2Video::computeHistograms(
 	GLCHK(glEnableVertexAttribArray(
 		mHistogramTexcoordHandle[colorConversion]));
 
+    //dgd
 	GLCHK(glDrawArrays(GL_TRIANGLE_STRIP, 0, 4));
 
 	GLCHK(glDisableVertexAttribArray(
@@ -2653,6 +2710,9 @@ int Gles2Video::renderFrame(size_t framePlaneStride[3],
 			    const struct vmeta_frame *metadata,
 			    const struct pdraw_video_renderer_params *params)
 {
+//    if(dgdframeMeta != NULL){
+//        float v_fov = dgdframeMeta->v3.base.picture_vfov;
+//    }
 	int ret;
 	unsigned int i;
 	float stride[GLES2_VIDEO_TEX_UNIT_COUNT * 2] = {0};
@@ -2980,9 +3040,35 @@ int Gles2Video::renderFrame(size_t framePlaneStride[3],
 					    texCoords));
 		GLCHK(glEnableVertexAttribArray(
 			mTexcoordHandle[colorConversion]));
-
+        int val = -1;
+        glGetIntegerv(GL_ARRAY_BUFFER_BINDING, &val);
 		GLCHK(glDrawArrays(GL_TRIANGLE_STRIP, 0, 4));
 
+        
+        //1080, 1805 = vpport
+        //_lfClientEngine.Render(0.0, 1010.8, 0.5 * videoW * 1080, 0.5 * videoH * 1805, GetViewData());
+        //_lfClientEngine.Render(0.0, 397.1, 1080, 1407.9, GetViewData());
+        //videoW is the shader ie -1 1 loation in the viewport
+        //renderPos x/y is the size of the viewport we are rendering the video in
+        unsigned int vidWidth = mVideoWidth;
+        unsigned int vidHeight = mVideoHeight;
+        double videoAspectRatio = (double)vidWidth / (double)vidHeight;
+        double textureNormalizedWidth = videoW;
+        double textureNormalizedheight = videoH;
+        double textureAspectRation = textureNormalizedWidth / textureNormalizedheight;
+        
+        GLint m_viewport[4];
+        boost::shared_ptr<SViewData> metaData(new SViewData);//create a new one just in case the other end hasn't set the current view data yet
+        glGetIntegerv( GL_VIEWPORT, m_viewport );
+        {
+            boost::mutex::scoped_lock scoped_lock(sviewMutex);//lock so that we aren't in middle of creating the data on the other end
+            metaData = _frameViewData;
+        }
+
+        double delta = 200.0;
+        if(_viewDataInitialized)
+            _lfClientEngine.Render(0.0, 397.1 + delta, renderPos->width - 10.0, 1010.8 - (2 * delta), metaData);//GetViewData());
+        glBindBuffer(GL_ARRAY_BUFFER, val);
 		GLCHK(glDisableVertexAttribArray(
 			mPositionHandle[colorConversion]));
 		GLCHK(glDisableVertexAttribArray(
@@ -2991,6 +3077,7 @@ int Gles2Video::renderFrame(size_t framePlaneStride[3],
 
 	return 0;
 }
+
 
 
 void Gles2Video::setVideoMedia(VideoMedia *media)

@@ -1298,7 +1298,7 @@ static int pdraw_gles2hud_render_imaging(
 
 	return 0;
 }
-
+#include <iostream>
 
 int pdraw_gles2hud_render(
 	struct pdraw_gles2hud *self,
@@ -1313,9 +1313,10 @@ int pdraw_gles2hud_render(
 	const struct pdraw_gles2hud_controller_meta *ctrl_meta,
 	const struct pdraw_gles2hud_drone_meta *drone_meta)
 {
+    int returnVal = -1;
 	switch (type) {
-	case PDRAW_GLES2HUD_TYPE_PILOTING:
-		return pdraw_gles2hud_render_piloting(self,
+	case PDRAW_GLES2HUD_TYPE_PILOTING: //returns 0
+            returnVal = pdraw_gles2hud_render_piloting(self,
 						      render_pos,
 						      content_pos,
 						      view_proj_mat,
@@ -1325,6 +1326,8 @@ int pdraw_gles2hud_render(
 						      frame_extra,
 						      ctrl_meta,
 						      drone_meta);
+            std::cout<<returnVal<<std::endl;
+            return returnVal;
 	case PDRAW_GLES2HUD_TYPE_IMAGING:
 		return pdraw_gles2hud_render_imaging(self,
 						     render_pos,
