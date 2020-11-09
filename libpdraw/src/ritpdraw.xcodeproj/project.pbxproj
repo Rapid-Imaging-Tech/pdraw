@@ -38,10 +38,6 @@
 		911345E3253F3E4700C134AA /* pdraw_renderer_videocoreegl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 911345DA253F3E4700C134AA /* pdraw_renderer_videocoreegl.cpp */; };
 		911345E4253F3E4700C134AA /* pdraw_socket_inet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 911345DB253F3E4700C134AA /* pdraw_socket_inet.cpp */; };
 		911345E5253F3E4700C134AA /* pdraw_wrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 911345DC253F3E4700C134AA /* pdraw_wrapper.cpp */; };
-		911345FD253F450200C134AA /* ritpdraw.m in Sources */ = {isa = PBXBuildFile; fileRef = 911345FC253F450200C134AA /* ritpdraw.m */; };
-		911345FE253F450200C134AA /* ritpdraw.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 911345FB253F450200C134AA /* ritpdraw.h */; };
-		9113460C253F458800C134AA /* ritpdraw3.m in Sources */ = {isa = PBXBuildFile; fileRef = 9113460B253F458800C134AA /* ritpdraw3.m */; };
-		9113460D253F458800C134AA /* ritpdraw3.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9113460A253F458800C134AA /* ritpdraw3.h */; };
 		91134614253F587B00C134AA /* pdraw_renderer_videocoreegl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 911345DA253F3E4700C134AA /* pdraw_renderer_videocoreegl.cpp */; };
 		91134615253F587B00C134AA /* pdraw_session.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 911345D4253F3E4700C134AA /* pdraw_session.cpp */; };
 		91134616253F587B00C134AA /* pdraw_settings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 911345D9253F3E4700C134AA /* pdraw_settings.cpp */; };
@@ -81,7 +77,6 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
-				911345FE253F450200C134AA /* ritpdraw.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,7 +86,6 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
-				9113460D253F458800C134AA /* ritpdraw3.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,43 +93,39 @@
 
 /* Begin PBXFileReference section */
 		9113459E253F3C5E00C134AA /* libritpdraw.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libritpdraw.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		911345A6253F3D5E00C134AA /* pdraw_avcdecoder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = pdraw_avcdecoder.hpp; path = ../../code/groundsdk/packages/pdraw/libpdraw/src/pdraw_avcdecoder.hpp; sourceTree = "<group>"; };
-		911345A9253F3E0600C134AA /* pdraw_element.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_element.cpp; path = ../../code/groundsdk/packages/pdraw/libpdraw/src/pdraw_element.cpp; sourceTree = "<group>"; };
-		911345AA253F3E0600C134AA /* pdraw_gles2_hmd_positions_cockpitglasses2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_gles2_hmd_positions_cockpitglasses2.cpp; path = ../../code/groundsdk/packages/pdraw/libpdraw/src/pdraw_gles2_hmd_positions_cockpitglasses2.cpp; sourceTree = "<group>"; };
-		911345AB253F3E0600C134AA /* pdraw_channel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_channel.cpp; path = ../../code/groundsdk/packages/pdraw/libpdraw/src/pdraw_channel.cpp; sourceTree = "<group>"; };
-		911345AC253F3E0600C134AA /* pdraw_renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_renderer.cpp; path = ../../code/groundsdk/packages/pdraw/libpdraw/src/pdraw_renderer.cpp; sourceTree = "<group>"; };
-		911345AD253F3E0600C134AA /* pdraw_demuxer_stream_net.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_demuxer_stream_net.cpp; path = ../../code/groundsdk/packages/pdraw/libpdraw/src/pdraw_demuxer_stream_net.cpp; sourceTree = "<group>"; };
-		911345AE253F3E0600C134AA /* pdraw_gles2_hmd_positions_cockpitglasses.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_gles2_hmd_positions_cockpitglasses.cpp; path = ../../code/groundsdk/packages/pdraw/libpdraw/src/pdraw_gles2_hmd_positions_cockpitglasses.cpp; sourceTree = "<group>"; };
-		911345AF253F3E0600C134AA /* pdraw_renderer_gles2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_renderer_gles2.cpp; path = ../../code/groundsdk/packages/pdraw/libpdraw/src/pdraw_renderer_gles2.cpp; sourceTree = "<group>"; };
-		911345B0253F3E0600C134AA /* pdraw_demuxer_record.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_demuxer_record.cpp; path = ../../code/groundsdk/packages/pdraw/libpdraw/src/pdraw_demuxer_record.cpp; sourceTree = "<group>"; };
-		911345B1253F3E0600C134AA /* pdraw_gles2_hmd_texcoords.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_gles2_hmd_texcoords.cpp; path = ../../code/groundsdk/packages/pdraw/libpdraw/src/pdraw_gles2_hmd_texcoords.cpp; sourceTree = "<group>"; };
-		911345B2253F3E0600C134AA /* pdraw_media.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_media.cpp; path = ../../code/groundsdk/packages/pdraw/libpdraw/src/pdraw_media.cpp; sourceTree = "<group>"; };
-		911345B3253F3E0600C134AA /* pdraw_demuxer_stream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_demuxer_stream.cpp; path = ../../code/groundsdk/packages/pdraw/libpdraw/src/pdraw_demuxer_stream.cpp; sourceTree = "<group>"; };
-		911345B4253F3E0600C134AA /* pdraw_gles2_video.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_gles2_video.cpp; path = ../../code/groundsdk/packages/pdraw/libpdraw/src/pdraw_gles2_video.cpp; sourceTree = "<group>"; };
-		911345B5253F3E0600C134AA /* pdraw_gles2_hmd_colors.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_gles2_hmd_colors.cpp; path = ../../code/groundsdk/packages/pdraw/libpdraw/src/pdraw_gles2_hmd_colors.cpp; sourceTree = "<group>"; };
-		911345B6253F3E0600C134AA /* pdraw_avcdecoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_avcdecoder.cpp; path = ../../code/groundsdk/packages/pdraw/libpdraw/src/pdraw_avcdecoder.cpp; sourceTree = "<group>"; };
-		911345B7253F3E0600C134AA /* pdraw_gles2_hmd.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_gles2_hmd.cpp; path = ../../code/groundsdk/packages/pdraw/libpdraw/src/pdraw_gles2_hmd.cpp; sourceTree = "<group>"; };
-		911345B8253F3E0600C134AA /* pdraw_metadata_session.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_metadata_session.cpp; path = ../../code/groundsdk/packages/pdraw/libpdraw/src/pdraw_metadata_session.cpp; sourceTree = "<group>"; };
-		911345B9253F3E0600C134AA /* pdraw_gles2_hmd_shaders.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_gles2_hmd_shaders.cpp; path = ../../code/groundsdk/packages/pdraw/libpdraw/src/pdraw_gles2_hmd_shaders.cpp; sourceTree = "<group>"; };
-		911345BA253F3E0600C134AA /* pdraw_gles2_hmd_texcoords_cockpitglasses_blue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_gles2_hmd_texcoords_cockpitglasses_blue.cpp; path = ../../code/groundsdk/packages/pdraw/libpdraw/src/pdraw_gles2_hmd_texcoords_cockpitglasses_blue.cpp; sourceTree = "<group>"; };
-		911345BB253F3E0600C134AA /* pdraw_gles2_hmd_texcoords_cockpitglasses_red.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_gles2_hmd_texcoords_cockpitglasses_red.cpp; path = ../../code/groundsdk/packages/pdraw/libpdraw/src/pdraw_gles2_hmd_texcoords_cockpitglasses_red.cpp; sourceTree = "<group>"; };
-		911345BC253F3E0600C134AA /* pdraw_gles2_hmd_indices.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_gles2_hmd_indices.cpp; path = ../../code/groundsdk/packages/pdraw/libpdraw/src/pdraw_gles2_hmd_indices.cpp; sourceTree = "<group>"; };
-		911345BD253F3E0600C134AA /* pdraw_demuxer_stream_mux.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_demuxer_stream_mux.cpp; path = ../../code/groundsdk/packages/pdraw/libpdraw/src/pdraw_demuxer_stream_mux.cpp; sourceTree = "<group>"; };
-		911345D4253F3E4700C134AA /* pdraw_session.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_session.cpp; path = ../../code/groundsdk/packages/pdraw/libpdraw/src/pdraw_session.cpp; sourceTree = "<group>"; };
-		911345D5253F3E4700C134AA /* pdraw_source.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_source.cpp; path = ../../code/groundsdk/packages/pdraw/libpdraw/src/pdraw_source.cpp; sourceTree = "<group>"; };
-		911345D6253F3E4700C134AA /* pdraw_sink_video.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_sink_video.cpp; path = ../../code/groundsdk/packages/pdraw/libpdraw/src/pdraw_sink_video.cpp; sourceTree = "<group>"; };
-		911345D7253F3E4700C134AA /* pdraw_utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_utils.cpp; path = ../../code/groundsdk/packages/pdraw/libpdraw/src/pdraw_utils.cpp; sourceTree = "<group>"; };
-		911345D8253F3E4700C134AA /* pdraw_sink.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_sink.cpp; path = ../../code/groundsdk/packages/pdraw/libpdraw/src/pdraw_sink.cpp; sourceTree = "<group>"; };
-		911345D9253F3E4700C134AA /* pdraw_settings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_settings.cpp; path = ../../code/groundsdk/packages/pdraw/libpdraw/src/pdraw_settings.cpp; sourceTree = "<group>"; };
-		911345DA253F3E4700C134AA /* pdraw_renderer_videocoreegl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_renderer_videocoreegl.cpp; path = ../../code/groundsdk/packages/pdraw/libpdraw/src/pdraw_renderer_videocoreegl.cpp; sourceTree = "<group>"; };
-		911345DB253F3E4700C134AA /* pdraw_socket_inet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_socket_inet.cpp; path = ../../code/groundsdk/packages/pdraw/libpdraw/src/pdraw_socket_inet.cpp; sourceTree = "<group>"; };
-		911345DC253F3E4700C134AA /* pdraw_wrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_wrapper.cpp; path = ../../code/groundsdk/packages/pdraw/libpdraw/src/pdraw_wrapper.cpp; sourceTree = "<group>"; };
+		911345A6253F3D5E00C134AA /* pdraw_avcdecoder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = pdraw_avcdecoder.hpp; path = ../../../../../groundsdk/packages/pdraw/libpdraw/src/pdraw_avcdecoder.hpp; sourceTree = "<group>"; };
+		911345A9253F3E0600C134AA /* pdraw_element.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_element.cpp; path = ../../../../../groundsdk/packages/pdraw/libpdraw/src/pdraw_element.cpp; sourceTree = "<group>"; };
+		911345AA253F3E0600C134AA /* pdraw_gles2_hmd_positions_cockpitglasses2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_gles2_hmd_positions_cockpitglasses2.cpp; path = ../../../../../groundsdk/packages/pdraw/libpdraw/src/pdraw_gles2_hmd_positions_cockpitglasses2.cpp; sourceTree = "<group>"; };
+		911345AB253F3E0600C134AA /* pdraw_channel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_channel.cpp; path = ../../../../../groundsdk/packages/pdraw/libpdraw/src/pdraw_channel.cpp; sourceTree = "<group>"; };
+		911345AC253F3E0600C134AA /* pdraw_renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_renderer.cpp; path = ../../../../../groundsdk/packages/pdraw/libpdraw/src/pdraw_renderer.cpp; sourceTree = "<group>"; };
+		911345AD253F3E0600C134AA /* pdraw_demuxer_stream_net.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_demuxer_stream_net.cpp; path = ../../../../../groundsdk/packages/pdraw/libpdraw/src/pdraw_demuxer_stream_net.cpp; sourceTree = "<group>"; };
+		911345AE253F3E0600C134AA /* pdraw_gles2_hmd_positions_cockpitglasses.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_gles2_hmd_positions_cockpitglasses.cpp; path = ../../../../../groundsdk/packages/pdraw/libpdraw/src/pdraw_gles2_hmd_positions_cockpitglasses.cpp; sourceTree = "<group>"; };
+		911345AF253F3E0600C134AA /* pdraw_renderer_gles2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_renderer_gles2.cpp; path = ../../../../../groundsdk/packages/pdraw/libpdraw/src/pdraw_renderer_gles2.cpp; sourceTree = "<group>"; };
+		911345B0253F3E0600C134AA /* pdraw_demuxer_record.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_demuxer_record.cpp; path = ../../../../../groundsdk/packages/pdraw/libpdraw/src/pdraw_demuxer_record.cpp; sourceTree = "<group>"; };
+		911345B1253F3E0600C134AA /* pdraw_gles2_hmd_texcoords.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_gles2_hmd_texcoords.cpp; path = ../../../../../groundsdk/packages/pdraw/libpdraw/src/pdraw_gles2_hmd_texcoords.cpp; sourceTree = "<group>"; };
+		911345B2253F3E0600C134AA /* pdraw_media.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_media.cpp; path = ../../../../../groundsdk/packages/pdraw/libpdraw/src/pdraw_media.cpp; sourceTree = "<group>"; };
+		911345B3253F3E0600C134AA /* pdraw_demuxer_stream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_demuxer_stream.cpp; path = ../../../../../groundsdk/packages/pdraw/libpdraw/src/pdraw_demuxer_stream.cpp; sourceTree = "<group>"; };
+		911345B4253F3E0600C134AA /* pdraw_gles2_video.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_gles2_video.cpp; path = ../../../../../groundsdk/packages/pdraw/libpdraw/src/pdraw_gles2_video.cpp; sourceTree = "<group>"; };
+		911345B5253F3E0600C134AA /* pdraw_gles2_hmd_colors.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_gles2_hmd_colors.cpp; path = ../../../../../groundsdk/packages/pdraw/libpdraw/src/pdraw_gles2_hmd_colors.cpp; sourceTree = "<group>"; };
+		911345B6253F3E0600C134AA /* pdraw_avcdecoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_avcdecoder.cpp; path = ../../../../../groundsdk/packages/pdraw/libpdraw/src/pdraw_avcdecoder.cpp; sourceTree = "<group>"; };
+		911345B7253F3E0600C134AA /* pdraw_gles2_hmd.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_gles2_hmd.cpp; path = ../../../../../groundsdk/packages/pdraw/libpdraw/src/pdraw_gles2_hmd.cpp; sourceTree = "<group>"; };
+		911345B8253F3E0600C134AA /* pdraw_metadata_session.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_metadata_session.cpp; path = ../../../../../groundsdk/packages/pdraw/libpdraw/src/pdraw_metadata_session.cpp; sourceTree = "<group>"; };
+		911345B9253F3E0600C134AA /* pdraw_gles2_hmd_shaders.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_gles2_hmd_shaders.cpp; path = ../../../../../groundsdk/packages/pdraw/libpdraw/src/pdraw_gles2_hmd_shaders.cpp; sourceTree = "<group>"; };
+		911345BA253F3E0600C134AA /* pdraw_gles2_hmd_texcoords_cockpitglasses_blue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_gles2_hmd_texcoords_cockpitglasses_blue.cpp; path = ../../../../../groundsdk/packages/pdraw/libpdraw/src/pdraw_gles2_hmd_texcoords_cockpitglasses_blue.cpp; sourceTree = "<group>"; };
+		911345BB253F3E0600C134AA /* pdraw_gles2_hmd_texcoords_cockpitglasses_red.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_gles2_hmd_texcoords_cockpitglasses_red.cpp; path = ../../../../../groundsdk/packages/pdraw/libpdraw/src/pdraw_gles2_hmd_texcoords_cockpitglasses_red.cpp; sourceTree = "<group>"; };
+		911345BC253F3E0600C134AA /* pdraw_gles2_hmd_indices.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_gles2_hmd_indices.cpp; path = ../../../../../groundsdk/packages/pdraw/libpdraw/src/pdraw_gles2_hmd_indices.cpp; sourceTree = "<group>"; };
+		911345BD253F3E0600C134AA /* pdraw_demuxer_stream_mux.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_demuxer_stream_mux.cpp; path = ../../../../../groundsdk/packages/pdraw/libpdraw/src/pdraw_demuxer_stream_mux.cpp; sourceTree = "<group>"; };
+		911345D4253F3E4700C134AA /* pdraw_session.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_session.cpp; path = ../../../../../groundsdk/packages/pdraw/libpdraw/src/pdraw_session.cpp; sourceTree = "<group>"; };
+		911345D5253F3E4700C134AA /* pdraw_source.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_source.cpp; path = ../../../../../groundsdk/packages/pdraw/libpdraw/src/pdraw_source.cpp; sourceTree = "<group>"; };
+		911345D6253F3E4700C134AA /* pdraw_sink_video.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_sink_video.cpp; path = ../../../../../groundsdk/packages/pdraw/libpdraw/src/pdraw_sink_video.cpp; sourceTree = "<group>"; };
+		911345D7253F3E4700C134AA /* pdraw_utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_utils.cpp; path = ../../../../../groundsdk/packages/pdraw/libpdraw/src/pdraw_utils.cpp; sourceTree = "<group>"; };
+		911345D8253F3E4700C134AA /* pdraw_sink.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_sink.cpp; path = ../../../../../groundsdk/packages/pdraw/libpdraw/src/pdraw_sink.cpp; sourceTree = "<group>"; };
+		911345D9253F3E4700C134AA /* pdraw_settings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_settings.cpp; path = ../../../../../groundsdk/packages/pdraw/libpdraw/src/pdraw_settings.cpp; sourceTree = "<group>"; };
+		911345DA253F3E4700C134AA /* pdraw_renderer_videocoreegl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_renderer_videocoreegl.cpp; path = ../../../../../groundsdk/packages/pdraw/libpdraw/src/pdraw_renderer_videocoreegl.cpp; sourceTree = "<group>"; };
+		911345DB253F3E4700C134AA /* pdraw_socket_inet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_socket_inet.cpp; path = ../../../../../groundsdk/packages/pdraw/libpdraw/src/pdraw_socket_inet.cpp; sourceTree = "<group>"; };
+		911345DC253F3E4700C134AA /* pdraw_wrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdraw_wrapper.cpp; path = ../../../../../groundsdk/packages/pdraw/libpdraw/src/pdraw_wrapper.cpp; sourceTree = "<group>"; };
 		911345F9253F450200C134AA /* libritpdraw.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libritpdraw.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		911345FB253F450200C134AA /* ritpdraw.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ritpdraw.h; sourceTree = "<group>"; };
-		911345FC253F450200C134AA /* ritpdraw.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ritpdraw.m; sourceTree = "<group>"; };
 		91134608253F458800C134AA /* libritpdraw3.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libritpdraw3.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		9113460A253F458800C134AA /* ritpdraw3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ritpdraw3.h; sourceTree = "<group>"; };
-		9113460B253F458800C134AA /* ritpdraw3.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ritpdraw3.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -197,8 +187,6 @@
 				911345AF253F3E0600C134AA /* pdraw_renderer_gles2.cpp */,
 				911345AC253F3E0600C134AA /* pdraw_renderer.cpp */,
 				911345A6253F3D5E00C134AA /* pdraw_avcdecoder.hpp */,
-				911345FA253F450200C134AA /* ritpdraw */,
-				91134609253F458800C134AA /* ritpdraw3 */,
 				9113459F253F3C5E00C134AA /* Products */,
 			);
 			sourceTree = "<group>";
@@ -211,24 +199,6 @@
 				91134608253F458800C134AA /* libritpdraw3.a */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		911345FA253F450200C134AA /* ritpdraw */ = {
-			isa = PBXGroup;
-			children = (
-				911345FB253F450200C134AA /* ritpdraw.h */,
-				911345FC253F450200C134AA /* ritpdraw.m */,
-			);
-			path = ritpdraw;
-			sourceTree = "<group>";
-		};
-		91134609253F458800C134AA /* ritpdraw3 */ = {
-			isa = PBXGroup;
-			children = (
-				9113460A253F458800C134AA /* ritpdraw3.h */,
-				9113460B253F458800C134AA /* ritpdraw3.m */,
-			);
-			path = ritpdraw3;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -377,7 +347,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				911345FD253F450200C134AA /* ritpdraw.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -415,7 +384,6 @@
 				9113462F253F587B00C134AA /* pdraw_metadata_session.cpp in Sources */,
 				91134630253F587B00C134AA /* pdraw_renderer_gles2.cpp in Sources */,
 				91134631253F587B00C134AA /* pdraw_renderer.cpp in Sources */,
-				9113460C253F458800C134AA /* ritpdraw3.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -542,20 +510,20 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SYSTEM_HEADER_SEARCH_PATHS = (
-					"\"$(SRCROOT)/../../code/groundsdk/packages/pdraw/libpdraw/include\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/libpomp/include\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/libvideo-buffers/include\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/libvideo-metadata/include\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/ulog/libulog/include\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/eigen\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/libvideo-buffers/implem/generic/include\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/libvideo-decode/include\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/libvideo-streaming/include\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/libfutils/include\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/librtsp/include\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/libh264/include\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/libsdp/include\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/libmp4/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/pdraw/libpdraw/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/libpomp/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/libvideo-buffers/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/libvideo-metadata/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/ulog/libulog/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/eigen\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/libvideo-buffers/implem/generic/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/libvideo-decode/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/libvideo-streaming/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/libfutils/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/librtsp/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/libh264/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/libsdp/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/libmp4/include\"",
 				);
 			};
 			name = Debug;
@@ -569,20 +537,20 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SYSTEM_HEADER_SEARCH_PATHS = (
-					"\"$(SRCROOT)/../../code/groundsdk/packages/pdraw/libpdraw/include\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/libpomp/include\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/libvideo-buffers/include\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/libvideo-metadata/include\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/ulog/libulog/include\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/eigen\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/libvideo-buffers/implem/generic/include\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/libvideo-decode/include\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/libvideo-streaming/include\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/libfutils/include\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/librtsp/include\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/libh264/include\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/libsdp/include\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/libmp4/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/pdraw/libpdraw/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/libpomp/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/libvideo-buffers/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/libvideo-metadata/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/ulog/libulog/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/eigen\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/libvideo-buffers/implem/generic/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/libvideo-decode/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/libvideo-streaming/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/libfutils/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/librtsp/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/libh264/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/libsdp/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/libmp4/include\"",
 				);
 			};
 			name = Release;
@@ -624,12 +592,12 @@
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = USE_GLES2;
 				HEADER_SEARCH_PATHS = (
-					"\"$(SRCROOT)/../RespondAR5-14-20PostMergeKEEP/RespondAR/Sample Code/SwiftSampleCode/SmartCam/LFClientEngineLibrary/include-public\"",
-					"\"$(SRCROOT)/../ofxiOSBoost/libs/boost/include\"",
-					"\"$(SRCROOT)/../RespondAR5-14-20PostMergeKEEP/RespondAR/Sample Code/SwiftSampleCode/SmartCam/LFClientEngineLibrary/include\"",
-					"\"$(SRCROOT)/../RespondAR5-14-20PostMergeKEEP/RespondAR/Sample Code/SwiftSampleCode/SmartCam/LFClientEngineLibrary/LFClientEngine\"",
-					"\"$(SRCROOT)/../RespondAR5-14-20PostMergeKEEP/RespondAR/Sample Code/SwiftSampleCode/SmartCam/libkml/src\"",
-					"\"$(SRCROOT)/../RespondAR5-14-20PostMergeKEEP/RespondAR/Sample Code/SwiftSampleCode/SmartCam/thirdparty\"",
+					"\"/Users/lafrance/dev/rit/RespondAR/Sample Code/SwiftSampleCode/SmartCam/LFClientEngineLibrary/include-public\"",
+					"\"/Users/lafrance/dev/rit/RespondAR/Sample Code/SwiftSampleCode/boost1.60ios/ofxiOSBoost/libs/boost/include\"",
+					"\"/Users/lafrance/dev/rit/RespondAR/Sample Code/SwiftSampleCode/SmartCam/LFClientEngineLibrary/include\"",
+					"\"/Users/lafrance/dev/rit/RespondAR/Sample Code/SwiftSampleCode/SmartCam/LFClientEngineLibrary/LFClientEngine\"",
+					"\"/Users/lafrance/dev/rit/RespondAR/Sample Code/SwiftSampleCode/SmartCam/libkml/src\"",
+					"\"/Users/lafrance/dev/rit/RespondAR/Sample Code/SwiftSampleCode/SmartCam/thirdparty\"",
 				);
 				INFOPLIST_PREPROCESSOR_DEFINITIONS = "USE_GLES2=1";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -639,20 +607,20 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SYSTEM_HEADER_SEARCH_PATHS = (
-					"\"$(SRCROOT)/../../code/groundsdk/packages/pdraw/libpdraw/include\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/libpomp/include\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/libvideo-buffers/include\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/libvideo-metadata/include\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/ulog/libulog/include\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/eigen\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/libvideo-buffers/implem/generic/include\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/libvideo-decode/include\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/libvideo-streaming/include\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/libfutils/include\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/librtsp/include\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/libh264/include\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/libsdp/include\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/libmp4/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/pdraw/libpdraw/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/libpomp/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/libvideo-buffers/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/libvideo-metadata/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/ulog/libulog/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/eigen\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/libvideo-buffers/implem/generic/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/libvideo-decode/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/libvideo-streaming/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/libfutils/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/librtsp/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/libh264/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/libsdp/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/libmp4/include\"",
 				);
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -681,20 +649,20 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SYSTEM_HEADER_SEARCH_PATHS = (
-					"\"$(SRCROOT)/../../code/groundsdk/packages/pdraw/libpdraw/include\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/libpomp/include\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/libvideo-buffers/include\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/libvideo-metadata/include\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/ulog/libulog/include\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/eigen\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/libvideo-buffers/implem/generic/include\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/libvideo-decode/include\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/libvideo-streaming/include\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/libfutils/include\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/librtsp/include\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/libh264/include\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/libsdp/include\"",
-					"\"$(SRCROOT)/../../code/groundsdk/packages/common/libmp4/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/pdraw/libpdraw/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/libpomp/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/libvideo-buffers/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/libvideo-metadata/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/ulog/libulog/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/eigen\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/libvideo-buffers/implem/generic/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/libvideo-decode/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/libvideo-streaming/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/libfutils/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/librtsp/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/libh264/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/libsdp/include\"",
+					"\"$(SRCROOT)/../../../../../groundsdk/packages/common/libmp4/include\"",
 				);
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
