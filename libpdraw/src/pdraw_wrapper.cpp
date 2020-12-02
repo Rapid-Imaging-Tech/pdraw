@@ -58,7 +58,7 @@ PDRAW_STATIC_ASSERT((int)Pdraw::VideoMedia::Format::H264 ==
 		    PDRAW_VIDEO_MEDIA_FORMAT_H264);
 PDRAW_STATIC_ASSERT((int)Pdraw::VideoMedia::Format::OPAQUE ==
 		    PDRAW_VIDEO_MEDIA_FORMAT_OPAQUE);
-#include <SViewData.h>
+#include "SViewData.h"
 #include <boost/shared_ptr.hpp>
 #include <boost/thread/mutex.hpp>
 #include <boost/thread/thread.hpp>

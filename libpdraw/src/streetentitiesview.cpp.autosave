@@ -1,0 +1,406 @@
+
+//
+//  StreetEntities.m
+//  LFClientEngine
+//
+//  Created by David Dvergsten on 11/30/16.
+//  Copyright © 2016 Rapid Imaging Software Inc. All rights reserved.
+//
+
+//#import <Foundation/Foundation.h>
+//#import "StreetEntitiesRA.h"
+//@interface StreetEntitiesRA(){
+//    ROIManRA* _roiMan;
+//    ElevationTIFFRA* _elTiff;
+//    KmlClientRA* _kmlClient;
+//}
+//@end
+//
+//@implementation StreetEntitiesRA
+//-(id)initWithRoiMgr:(ROIManRA*)roiMan ElevTiff:(ElevationTIFFRA*)elTiff KMLClient:(KmlClientRA*)kmlClient{
+//    if(self = [super init]){
+//        _roiMan = roiMan;
+//        _elTiff = elTiff;
+//        _kmlClient = kmlClient;
+//        return self;
+//    }
+//    else
+//        return nil;
+//}
+//
+//-(void)renderWithCameraX:(double)camX CameraY:(double)camY CameraZ:(double)camZ ViewData:(std::shared_ptr<SViewData>)viewData FrameWidth:(double)frameWidth FrameHeight:(double)frameHeight  DisplayWidth:(double)displayWidth DisplayHeight:(double)displayHeight{
+//    
+//}
+//
+//@end
+
+
+
+
+
+
+
+
+
+
+
+
+//
+//  StreetEntities.m
+//  SmartCam3D View
+//
+//  Created by David Dvergsten on 11/2/16.
+//  Copyright © 2016 Rapid Imaging Software, Inc. All rights reserved.
+//
+
+
+#import <Foundation/Foundation.h>
+#import "StreetEntitiesRA.h"
+#import <GLKit/GLKit.h>
+#import "LFDefinitionsRA.h"
+
+@interface StreetEntitiesRA(){
+    RISPlacemarkCollectionRA* _streetPlacemarkCollection;
+    RISPlacemarkCollectionRA* _userPolylineCollection;
+    SceneVertexRA* _lineVerticesUserPolylines;
+    //std::shared_ptr<LFClient> _spLFClient;
+    NSMutableArray* _lineStringIndicesUserPolylines;
+    NSMutableArray* _lineStringIndicesColorUserPolylines;
+    
+    int             _totalLineStringSizeUserPolylines;
+    GLKMatrix4 _modelViewProjectionMatrixLW;
+    GLKMatrix3 _normalMatrixLW;
+    GLKMatrix4 _modelViewMatrixLW;
+    
+    BOOL _generateLineworkLists;
+    BOOL _generateUserPolylineLists;
+    std::shared_ptr<SViewData> _viewData;
+    double _camX;
+    double _camY;
+    double _camZ;
+    
+    GLKMatrix4 _projectionMatrix;
+    NSMutableArray* _polylinesSortedByColor;
+    ElevationTIFFAsync* _elTiff;
+    
+    //ROIManRA* _roiMan;
+    KmlClientRA* _kmlClient;
+}
+
+@end
+
+@implementation StreetEntitiesRA
+
+//-(void)filterEntities:(NSDictionary*)filteredEntities
+//{
+//    
+//}
+
+-(void)SetElTiff:(ElevationTIFFAsync*)elTiff{
+    _elTiff = elTiff;
+}
+
+-(double)degreesToRadiansWithDegree:(double)degrees{
+    return degrees * 0.0174533;
+}
+extern GLint uniforms[NUM_UNIFORMSRA];
+-(void)calculateMatrices{
+    {
+        //CALCULATE MODELVIEWPROJECTION FOR LINEWORK
+        _modelViewMatrixLW = GLKMatrix4MakeTranslation(0.0f, 0.0f, 0.0f);
+        _modelViewMatrixLW = GLKMatrix4Rotate(_modelViewMatrixLW, [self degreesToRadiansWithDegree:_viewData->dCameraRoll], 0.0f, 0.0f, 1.0f);
+        _modelViewMatrixLW = GLKMatrix4Rotate(_modelViewMatrixLW, -[self degreesToRadiansWithDegree:_viewData->dCameraPitch], 1.0f, 0.0f, 0.0f);
+        _modelViewMatrixLW = GLKMatrix4Rotate(_modelViewMatrixLW, [self degreesToRadiansWithDegree:_viewData->dCameraHeading ], 0.0f, 1.0f, 0.0f);
+        
+        //rotate so that z is down
+        _modelViewMatrixLW = GLKMatrix4Rotate(_modelViewMatrixLW, -[self degreesToRadiansWithDegree:90], 1.0f, 0.0f, 0.0f);
+        _modelViewMatrixLW = GLKMatrix4Translate(_modelViewMatrixLW, -_camX, -_camY, -_camZ);
+        _normalMatrixLW = GLKMatrix4GetMatrix3(GLKMatrix4InvertAndTranspose(_modelViewMatrixLW, NULL));
+        _modelViewProjectionMatrixLW = GLKMatrix4Multiply(_projectionMatrix, _modelViewMatrixLW);
+    }
+}
+-(void)AddPlacemarks:(RISPlacemarkCollectionRA*)placemarkCollection{
+    _streetPlacemarkCollection = placemarkCollection;
+    _generateLineworkLists = YES;
+}
+
+-(void)AddUserPolylines:(RISPlacemarkCollectionRA*)userPolylineCollection{
+    _userPolylineCollection = userPolylineCollection;
+    _generateUserPolylineLists = YES;
+}
+-(id)initWithRoiMgr:(ROIManRA*)roiMan ElevTiff:(ElevationTIFFAsync*)elTiff KMLClient:(KmlClientRA*)kmlClient{
+    if(self = [super initWithRoiMgr:roiMan ElevTiff:elTiff KMLClient:kmlClient])
+    {
+        _lineStringIndicesUserPolylines = [[NSMutableArray alloc]init];
+        _lineStringIndicesColorUserPolylines = [[NSMutableArray alloc]init];
+        _polylinesSortedByColor = [[NSMutableArray alloc]init];
+        //_roiMan = roiMan;
+        _elTiff = elTiff;
+        _kmlClient = kmlClient;
+        return self;
+    }
+    else
+        return nil;
+}
+
+-(void)resetVerticesBufferUserPolylines
+{
+    int linestringCount = [_userPolylineCollection.polylines count];
+    int coordCount = 0;
+    [_lineStringIndicesUserPolylines removeAllObjects];
+    [_lineStringIndicesColorUserPolylines removeAllObjects];
+    for(int i = 0 ; i < linestringCount ; i++)
+    {
+        RISPolylineRA* pline = [_userPolylineCollection.polylines objectAtIndex:i];
+        coordCount += [pline.lineString.coordinateArray count];
+        NSNumber* xWrapped = [NSNumber numberWithInt:coordCount];
+        [_lineStringIndicesUserPolylines addObject:xWrapped];
+        [_lineStringIndicesColorUserPolylines addObject:pline.lineStyle.strokeColor];
+    }
+    _totalLineStringSizeUserPolylines = coordCount;
+    
+    if(_lineVerticesUserPolylines)
+        delete[] _lineVerticesUserPolylines;
+    _lineVerticesUserPolylines = new SceneVertexRA[coordCount];
+    int lineVertIndex = 0;
+    for(int i = 0; i < [_userPolylineCollection.polylines count]; i++)
+    {
+        RISPolylineRA* pline = [_userPolylineCollection.polylines objectAtIndex:i];
+        for(int j = 0 ; j < [pline.lineString.coordinateArray count] ; j++)
+        {
+            double vertx = 0.00;
+            double verty = 0.00;
+            double vertz = 0.00;
+            double lat =[[pline.lineString.coordinateArray objectAtIndex:j]latitude];
+            double lon =[[pline.lineString.coordinateArray objectAtIndex:j]longitude];
+            double elev = [[pline.lineString.coordinateArray objectAtIndex:j]elevation];//[_elTiff GetElevationAt:lat :lon];
+            //TODO: get elevation from eltiff now
+            //_spLFClient->SetSymbolCoords(lat, lon, elev, vertx, verty, vertz);
+            //ROIManRA*
+            [[super roiMan] GeodeticToCartesianLat:lat Lon:lon Alt:elev Xref:vertx Yref:verty Zref:vertz];
+            _lineVerticesUserPolylines[lineVertIndex].positionCoords.x = (float)vertx;
+            _lineVerticesUserPolylines[lineVertIndex].positionCoords.y = (float)verty;
+            _lineVerticesUserPolylines[lineVertIndex].positionCoords.z = (float)vertz;
+            lineVertIndex++;
+        }
+    }
+}
+-(void)Sort:(NSMutableArray*)pmarks{
+    
+    for(int i = 0  ; i < [pmarks count] ; i++){
+        RISPolylineRA* nonSortLS = [pmarks objectAtIndex:i];
+        BOOL foundMatch = NO;
+        
+        for(int  j = 0 ; j < [_polylinesSortedByColor count] ; j++){
+            RISStreetColorPlineCollectionRA* colorCollection = [_polylinesSortedByColor objectAtIndex:j];
+            RISPolylineRA* sortedPline = [colorCollection.polyinesByColor objectAtIndex:0];
+            if((sortedPline.lineStyle.strokeColor.red == nonSortLS.lineStyle.strokeColor.red)&&(sortedPline.lineStyle.strokeColor.green == nonSortLS.lineStyle.strokeColor.green)&&
+               (sortedPline.lineStyle.strokeColor.blue == nonSortLS.lineStyle.strokeColor.blue) &&
+               (sortedPline.lineStyle.strokeColor.alpha == nonSortLS.lineStyle.strokeColor.alpha))
+            {
+                //these linestring colors match
+                //add to the current mutablearray
+                foundMatch = YES;
+                [colorCollection.polyinesByColor addObject:nonSortLS];
+            }
+        }
+        if(foundMatch == NO){
+            //need to add a new mutablearray for this color
+            RISStreetColorPlineCollectionRA* newColoredCollection = [[RISStreetColorPlineCollectionRA alloc]init] ;
+            [newColoredCollection.polyinesByColor addObject:nonSortLS];
+            [_polylinesSortedByColor addObject:newColoredCollection];
+        }
+    }
+}
+-(void)resetVerticesBuffer
+{
+    [self Sort:_streetPlacemarkCollection.polylines];
+    for(int j = 0 ; j < [_polylinesSortedByColor count] ; j++)
+    {
+        RISStreetColorPlineCollectionRA* colorCollection = [_polylinesSortedByColor objectAtIndex:j];
+        int linestringCount = [colorCollection.polyinesByColor count];
+        int coordCount = 0;
+        [colorCollection.lineStringIndices removeAllObjects];
+        for(int i = 0 ; i < linestringCount ; i++)
+        {
+            RISPolylineRA* pline = [colorCollection.polyinesByColor objectAtIndex:i];
+            coordCount += [pline.lineString.coordinateArray count];
+            NSNumber* xWrapped = [NSNumber numberWithInt:coordCount];
+            [colorCollection.lineStringIndices addObject:xWrapped];
+        }
+        colorCollection.totalLineStringSize = coordCount;
+        
+        if(colorCollection.lineVertices)
+            delete[] colorCollection.lineVertices;
+        colorCollection.lineVertices = new SceneVertexRA[coordCount];
+        int lineVertIndex = 0;
+        for(int i = 0; i < [colorCollection.polyinesByColor count]; i++)
+        {
+            RISPolylineRA* pline = [colorCollection.polyinesByColor objectAtIndex:i];
+            for(int j = 0 ; j < [pline.lineString.coordinateArray count] ; j++)
+            {
+                double vertx = 0.00;
+                double verty = 0.00;
+                double vertz = 0.00;
+                double lat  = [[pline.lineString.coordinateArray objectAtIndex:j]latitude];
+                double lon  = [[pline.lineString.coordinateArray objectAtIndex:j]longitude];
+                double elev = [[pline.lineString.coordinateArray objectAtIndex:j]elevation];
+                //TODO: get elevation from eltiff now
+                //_spLFClient->SetSymbolCoords(lat, lon, elev, vertx, verty, vertz);
+                
+                [[super roiMan] GeodeticToCartesianLat:lat Lon:lon Alt:elev Xref:vertx Yref:verty Zref:vertz];
+                colorCollection.lineVertices[lineVertIndex].positionCoords.x = (float)vertx;
+                colorCollection.lineVertices[lineVertIndex].positionCoords.y = (float)verty;
+                colorCollection.lineVertices[lineVertIndex].positionCoords.z = (float)vertz;
+                lineVertIndex++;
+            }
+        }
+    }
+}
+
+-(void)triggerNewROI{
+    //we hit a new roi, so we need to recalc all the street vertices etc..
+    [self resetVerticesBuffer];
+    [self resetVerticesBufferUserPolylines];
+}
+
+-(void)renderWithCameraX:(double)camX CameraY:(double)camY CameraZ:(double)camZ ViewData:(std::shared_ptr<SViewData>)viewData FrameWidth:(double)frameWidth FrameHeight:(double)frameHeight DisplayWidth:(double)displayWidth DisplayHeight:(double)displayHeight{
+    double aspect = std::abs(frameWidth / frameHeight);
+    _viewData = viewData;
+    _projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(/*67.0*/_viewData->dFovVerticalAngle), aspect, 0.01f, 1000000.0f);
+    _viewData = viewData;
+    _camX = camX;
+    _camY = camY;
+    _camZ = camZ;
+    
+    if(_generateLineworkLists == YES && _elTiff != 0x00)
+    {
+        [self resetVerticesBuffer];
+        _generateLineworkLists = NO;
+    }
+    if(_generateUserPolylineLists == YES && _elTiff != 0x00)
+    {
+        [self resetVerticesBufferUserPolylines];
+        _generateUserPolylineLists = NO;
+    }
+    
+    [self calculateMatrices];
+    
+    GLKVector4 linecolor;
+    //TODO: we will need an nsmutablearray of linevertices.  Each one pertaining to a
+    //certain color.  Set the color here.
+    for(int j = 0 ; j < [_polylinesSortedByColor count] ; j++)
+    {
+        RISStreetColorPlineCollectionRA* colorCollection = [_polylinesSortedByColor objectAtIndex:j];
+        if(colorCollection.lineVertices)//todo: for linework, add this back in!!!
+        {
+            RISPolylineRA* pl = [colorCollection.polyinesByColor objectAtIndex:0];
+            //if([self shouldPrint:pl])
+            //{
+                linecolor.r = pl.lineStyle.strokeColor.red;
+                linecolor.g = pl.lineStyle.strokeColor.green;
+                linecolor.b = pl.lineStyle.strokeColor.blue;
+                linecolor.a = 0.3;//pl.lineStyle.strokeColor.alpha;
+                glEnableVertexAttribArray(GLKVertexAttribPosition);
+                glVertexAttribPointer(GLKVertexAttribPosition /*ATTRIBUTE_VERTEX*/, 3 /*3 floats per scenevertex*/, GL_FLOAT, GL_FALSE, sizeof(SceneVertexRA), colorCollection.lineVertices);
+                glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIXRA], 1, 0, _modelViewProjectionMatrixLW.m);
+                glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIXRA], 1, 0, _normalMatrixLW.m);
+                glUniform4fv(uniforms[UNIFORM_LINECOLORRA], 1, linecolor.v);
+                
+                NSNumber* startIndices = [[NSNumber alloc]initWithInt:0];
+                NSNumber* endIndices;
+                for(int i = 0 ; i < [colorCollection.lineStringIndices count] ; i++)
+                {
+                    
+                    endIndices = [colorCollection.lineStringIndices objectAtIndex:i];
+                    GLint start = (GLint)[startIndices integerValue];
+                    GLsizei count = (GLint)([endIndices integerValue] - [startIndices integerValue]);
+                    glLineWidth(6.0);
+                    RISPolylineRA* pl2 = [colorCollection.polyinesByColor objectAtIndex:i];
+                    if([self shouldPrint:pl2])
+                    {
+                        glDrawArrays(GL_LINE_STRIP, start, count);
+                    }
+                    else
+                    {
+                        NSLog(@"bypassed line");
+                    }
+                    startIndices = endIndices;
+                }
+            //}
+        }
+    }
+    
+    if(_lineVerticesUserPolylines)//todo: for linework, add this back in!!!
+    {
+        for(int i = 0 ; i < [_lineStringIndicesUserPolylines count] ; i++)
+        {
+            linecolor.r = 1.0;
+            linecolor.g = 0.0;
+            linecolor.b = 0.0;
+            linecolor.a = 1.0;
+            
+            glEnableVertexAttribArray(GLKVertexAttribPosition);
+            glVertexAttribPointer(GLKVertexAttribPosition /*ATTRIBUTE_VERTEX*/, 3 /*3 floats per scenevertex*/, GL_FLOAT, GL_FALSE, sizeof(SceneVertexRA), _lineVerticesUserPolylines);
+            glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIXRA], 1, 0, _modelViewProjectionMatrixLW.m);
+            glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIXRA], 1, 0, _normalMatrixLW.m);
+            glUniform4fv(uniforms[UNIFORM_LINECOLORRA], 1, linecolor.v);
+            
+            NSNumber* startIndices = [[NSNumber alloc]initWithInt:0];
+            NSNumber* endIndices;
+            
+            endIndices = [_lineStringIndicesUserPolylines objectAtIndex:i];
+            GLint start = (GLint)[startIndices integerValue];
+            GLsizei count = (GLint)([endIndices integerValue] - [startIndices integerValue]);
+            glLineWidth(6.0);
+            glDrawArrays(GL_LINE_STRIP, start, count);
+            startIndices = endIndices;
+        }
+    }
+}
+-(BOOL)shouldPrint:(RISPolylineRA*)pline{
+    NSDictionary* dict = [super filteredEntities];
+    
+    NSNumber* roadlines = [dict objectForKey:@"roadlines"];
+    NSNumber* railroads = [dict objectForKey:@"railroads"];
+    NSNumber* boundaries = [dict objectForKey:@"boundaries"];
+    NSNumber* airports = [dict objectForKey:@"airports"];
+    NSNumber* hydro = [dict objectForKey:@"hydro"];
+    
+    if(pline.lineStyle.strokeColor.red == (double)(1.0/3.0) && pline.lineStyle.strokeColor.green == (double)(1.0/3.0)
+       &&pline.lineStyle.strokeColor.blue == (double)(1.0/3.0) && pline.lineStyle.strokeColor.alpha == 1.0)
+    {
+        //this is the boundaries color
+        return [boundaries boolValue];
+    }
+    
+    if(pline.lineStyle.strokeColor.red == (double)(0.00) && pline.lineStyle.strokeColor.green == (double)(0.00)
+       &&pline.lineStyle.strokeColor.blue == (double)(1.0) && pline.lineStyle.strokeColor.alpha == 1.0)
+    {
+        //this is the boundaries color
+        return [hydro boolValue];
+    }
+    
+    if(pline.lineStyle.strokeColor.red == (double)(1.0) && pline.lineStyle.strokeColor.green == (double)(1.0)
+       &&pline.lineStyle.strokeColor.blue == (double)(0.00) && pline.lineStyle.strokeColor.alpha == 1.0)
+    {
+        //this is the boundaries color
+        return [roadlines boolValue];
+    }
+    
+    if(pline.lineStyle.strokeColor.red == (double)(0.0) && pline.lineStyle.strokeColor.green == (double)(0.0)
+       &&pline.lineStyle.strokeColor.blue == (double)(0.00) && pline.lineStyle.strokeColor.alpha == 1.0)
+    {
+        //this is the boundaries color
+        if([pline.name containsString:@"-RR-"])
+        {
+            return [railroads boolValue];
+        }
+        else if([pline.name containsString:@"-RW-"])
+        {
+            return [airports boolValue];
+        }
+    }
+    return YES;
+}
+@end

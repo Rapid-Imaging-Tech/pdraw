@@ -1,0 +1,29 @@
+//
+//  StreetEntities.h
+//  LFClientEngine
+//
+//  Created by David Dvergsten on 11/30/16.
+//  Copyright © 2016 Rapid Imaging Software Inc. All rights reserved.
+//
+
+#ifndef StreetEntities_h
+#define StreetEntities_h
+#import <Foundation/Foundation.h>
+#import "ROIManRA.h"
+#import "KmlClientRA.h"
+#import "ElevationTiffRA.h"
+#import "RISPlacemarkCollectionRA.h"
+#import <memory>
+#import "SViewData.h"
+#import "OpenGLEntity.h"
+
+@interface StreetEntitiesRA : OpenGLEntity
+-(id)initWithRoiMgr:(ROIManRA*)roiMan ElevTiff:(ElevationTIFFAsync*)elTiff KMLClient:(KmlClientRA*)kmlClient;
+-(void)AddPlacemarks:(RISPlacemarkCollectionRA*)placemarkCollection;
+-(void)AddUserPolylines:(RISPlacemarkCollectionRA*)userPolylineCollection;
+-(void)renderWithCameraX:(double)camX CameraY:(double)camY CameraZ:(double)camZ ViewData:(std::shared_ptr<SViewData>)viewData FrameWidth:(double)frameWidth FrameHeight:(double)frameHeight  DisplayWidth:(double)displayWidth DisplayHeight:(double)displayHeight;
+-(void)triggerNewROI;
+//-(void)SetElTiff:(ElevationTIFF*)elTiff;
+@end
+
+#endif /* StreetEntities_h */

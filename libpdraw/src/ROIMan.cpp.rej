@@ -1,0 +1,131 @@
+--- LFClientEngine/ROIMan.cpp
++++ LFClientEngine/ROIMan.cpp
+@@ -661,82 +661,77 @@ bool ROIMan::CheckRoiChangeWithFootprint(boost::shared_ptr<SViewData> viewData){
+     //if yes, then newroi = true, and center around fp center
+     //make roi size max min lat/lon fp max min lat/lon *2
+     FootPrint fp = GetFootPrint();
+-    double minFPLatInsideGrid = fp.fpLat[0];//initial value
+-    double maxFPLatInsideGrid = fp.fpLat[0];//initial value
+-    double minFPLonInsideGrid = fp.fpLon[0];//initial value
+-    double maxFPLonInsideGrid = fp.fpLon[0];//initial value
++    double minFPLat = fp.fpLat[0];//initial value
++    double maxFPLat = fp.fpLat[0];//initial value
++    double minFPLon = fp.fpLon[0];//initial value
++    double maxFPLon = fp.fpLon[0];//initial value
+ 
+ 
+     //calculate min/max lat min/max lon of footprint
+     for(int i = 0 ; i < 4 ; i++)
+     {
+-        if(fp.fpLat[i] < minFPLatInsideGrid)
++        if(fp.fpLat[i] < minFPLat)
+         {
+-            minFPLatInsideGrid = fp.fpLat[i];
++            minFPLat = fp.fpLat[i];
+         }
+-        else if(fp.fpLat[i] > maxFPLatInsideGrid)
++        else if(fp.fpLat[i] > maxFPLat)
+         {
+-            maxFPLatInsideGrid = fp.fpLat[i];
++            maxFPLat = fp.fpLat[i];
+         }
+-        if(fp.fpLon[i] < minFPLonInsideGrid)
++        if(fp.fpLon[i] < minFPLon)
+         {
+-            minFPLonInsideGrid = fp.fpLon[i];
++            minFPLon = fp.fpLon[i];
+         }
+-        else if(fp.fpLon[i] > maxFPLonInsideGrid)
++        else if(fp.fpLon[i] > maxFPLon)
+         {
+-            maxFPLatInsideGrid = fp.fpLon[i];
++            maxFPLon = fp.fpLon[i];
+         }
+     }
+ 
+-//    double minFPLatInsideGrid = minFPLat;
+-//    double maxFPLatInsideGrid = maxFPLat;
+-//    double minFPLonInsideGrid = minFPLon;
+-//    double maxFPLonInsideGrid = maxFPLon;
++    double minFPLatInsideGrid = minFPLat;
++    double maxFPLatInsideGrid = maxFPLat;
++    double minFPLonInsideGrid = minFPLon;
++    double maxFPLonInsideGrid = maxFPLon;
+ 
+-//    if(minFPLatInsideGrid < _kmlGridSouthLatLine){
+-//        minFPLatInsideGrid = _kmlGridSouthLatLine;
+-//    }
+-//    else if(minFPLatInsideGrid > _kmlGridNorthLatLine){
+-//        minFPLatInsideGrid = _kmlGridNorthLatLine;
+-//    }
++    if(minFPLatInsideGrid < _kmlGridSouthLatLine){
++        minFPLatInsideGrid = _kmlGridSouthLatLine;
++    }
++    else if(minFPLatInsideGrid > _kmlGridNorthLatLine){
++        minFPLatInsideGrid = _kmlGridNorthLatLine;
++    }
+ 
+-//    if(maxFPLatInsideGrid < _kmlGridSouthLatLine){
+-//        maxFPLatInsideGrid = _kmlGridSouthLatLine;
+-//    }
+-//    else if(maxFPLatInsideGrid > _kmlGridNorthLatLine){
+-//        maxFPLatInsideGrid = _kmlGridNorthLatLine;
+-//    }
++    if(maxFPLatInsideGrid < _kmlGridSouthLatLine){
++        maxFPLatInsideGrid = _kmlGridSouthLatLine;
++    }
++    else if(maxFPLatInsideGrid > _kmlGridNorthLatLine){
++        maxFPLatInsideGrid = _kmlGridNorthLatLine;
++    }
+ 
+-//    if(maxFPLonInsideGrid < _kmlGridWestLonLine){
+-//        maxFPLonInsideGrid = _kmlGridWestLonLine;
+-//    }
+-//    else if(maxFPLonInsideGrid > _kmlGridEastLonLine){
+-//        maxFPLonInsideGrid = _kmlGridEastLonLine;
+-//    }
++    if(maxFPLonInsideGrid < _kmlGridWestLonLine){
++        maxFPLonInsideGrid = _kmlGridWestLonLine;
++    }
++    else if(maxFPLonInsideGrid > _kmlGridEastLonLine){
++        maxFPLonInsideGrid = _kmlGridEastLonLine;
++    }
+ 
+-//    if(minFPLonInsideGrid < _kmlGridWestLonLine){
+-//        minFPLonInsideGrid = _kmlGridWestLonLine;
+-//    }
+-//    else if(minFPLonInsideGrid > _kmlGridEastLonLine){
+-//        minFPLonInsideGrid = _kmlGridEastLonLine;
+-//    }
++    if(minFPLonInsideGrid < _kmlGridWestLonLine){
++        minFPLonInsideGrid = _kmlGridWestLonLine;
++    }
++    else if(minFPLonInsideGrid > _kmlGridEastLonLine){
++        minFPLonInsideGrid = _kmlGridEastLonLine;
++    }
+ 
+ 
+-    if(minFPLatInsideGrid != 0.00 && minFPLonInsideGrid != 0.00 &&
+-            maxFPLatInsideGrid != 0.00 && maxFPLonInsideGrid != 0.00)
++    if(minFPLat != 0.00 && minFPLon != 0.00 && maxFPLat != 0.00 && maxFPLon != 0.00)
+     {
+ 
+ 
+         CoordinateConverter cv = GetLatestCoordConverter();
+-        //have to add some buffer due to rounding errors, this checks
+-        //to see if our footprint is within our last roi.
+-        //if we are at the edge of the grid, and we don't do this
+-        //we could potentially get stuck in a loop of each frame
+-        //creating a new roi
+-        bool minlatoutside = minFPLatInsideGrid < cv._lat1 - 0.00001;
+-        bool minlonoutside = minFPLonInsideGrid < cv._lon1 - 0.00001;
+-        bool maxlatoutside = maxFPLatInsideGrid > cv._lat2 + 0.00001;
+-        bool maxlonoutside = maxFPLonInsideGrid > cv._lon2 + 0.00001;
++        //have to add some buffer due to rounding errors
++        bool minlatoutside = minFPLat < cv._lat1 - 0.00001;
++        bool minlonoutside = minFPLon < cv._lon1 - 0.00001;
++        bool maxlatoutside = maxFPLat > cv._lat2 + 0.00001;
++        bool maxlonoutside = maxFPLon > cv._lon2 + 0.00001;
+ 
+         if (minlatoutside || maxlatoutside || minlonoutside || maxlonoutside)
+         {

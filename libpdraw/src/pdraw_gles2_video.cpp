@@ -3062,12 +3062,16 @@ int Gles2Video::renderFrame(size_t framePlaneStride[3],
         glGetIntegerv( GL_VIEWPORT, m_viewport );
         {
             boost::mutex::scoped_lock scoped_lock(sviewMutex);//lock so that we aren't in middle of creating the data on the other end
-            metaData = _frameViewData;
+			metaData->dFovVerticalAngle = hFov;
+			metaData->dFovHorizontalAngle = vFov;
+			metaData = _frameViewData;
         }
 
         double delta = 200.0;
-        if(_viewDataInitialized)
-            _lfClientEngine.Render(0.0, 397.1 + delta, renderPos->width - 10.0, 1010.8 - (2 * delta), metaData);//GetViewData());
+        if(_viewDataInitialized) {
+            // _lfClientEngine.Render(0.0, 397.1 + delta, renderPos->width - 10.0, 1010.8 - (2 * delta), metaData);//GetViewData());
+			_lfClientEngine.Render(contentPos->x, contentPos->y, contentPos->width, contentPos->height, metaData);
+		}
         glBindBuffer(GL_ARRAY_BUFFER, val);
 		GLCHK(glDisableVertexAttribArray(
 			mPositionHandle[colorConversion]));

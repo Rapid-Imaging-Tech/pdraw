@@ -1,0 +1,16 @@
+#ifndef PLACEMARKINFO
+#define PLACEMARKINFO
+#include <qstring.h>
+#include <qstringlist.h>
+
+/**
+ * contains info on each poi element.  Later this info can be used to hide/show/delete said element after a kmz file has been added.
+ */
+class PlacemarkInfo{
+public:
+    QString _filename;
+    QStringList _path;
+    QString _element;
+};
+#endif // PLACEMARKINFO
+
