@@ -3056,7 +3056,7 @@ int Gles2Video::renderFrame(size_t framePlaneStride[3],
         double textureNormalizedWidth = videoW;
         double textureNormalizedheight = videoH;
         double textureAspectRation = textureNormalizedWidth / textureNormalizedheight;
-        
+        double vidH = (1.0 / videoAspectRatio) * renderPos->width;
         GLint m_viewport[4];
         boost::shared_ptr<SViewData> metaData(new SViewData);//create a new one just in case the other end hasn't set the current view data yet
         glGetIntegerv( GL_VIEWPORT, m_viewport );
@@ -3066,8 +3066,10 @@ int Gles2Video::renderFrame(size_t framePlaneStride[3],
         }
 
         double delta = 200.0;
-        if(_viewDataInitialized)
-            _lfClientEngine.Render(0.0, 397.1 + delta, renderPos->width - 10.0, 1010.8 - (2 * delta), metaData);//GetViewData());
+        if(_viewDataInitialized){
+//            _lfClientEngine.Render(0.0, 397.1 + delta, renderPos->width - 10.0, 1010.8 - (2 * delta), metaData);//GetViewData());
+            _lfClientEngine.Render(renderPos->x, (renderPos->height / 2.0) - (0.5 * vidH), renderPos->width , vidH, metaData);//GetViewData());
+        }
         glBindBuffer(GL_ARRAY_BUFFER, val);
 		GLCHK(glDisableVertexAttribArray(
 			mPositionHandle[colorConversion]));
