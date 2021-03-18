@@ -29,11 +29,19 @@
  */
 
 #include "pdraw_gles2_video.hpp"
+//<<<<<<< HEAD
 
 //#include "LFClientEngine.h"
 
 //LFClientEngine _lfClientEngine;
 
+//=======
+////#include "LFClient.h"
+//#include "LFClientEngine.h"
+////boost::shared_ptr<LFClient> _lfclient;
+//LFClientEngine _lfClientEngine;
+////boost::shared_ptr<SViewData> _viewData;
+//>>>>>>> cd2cb4a4c0932f7f98aeaa0afc7d118a51099d3c
 #ifdef USE_GLES2
 
 #	include "pdraw_session.hpp"
@@ -54,9 +62,13 @@ ULOG_DECLARE_TAG(pdraw_gles2vid);
 #include <boost/shared_ptr.hpp>
 #include <boost/thread/mutex.hpp>
 #include <boost/thread/thread.hpp>
+//<<<<<<< HEAD
 
 #include "/Users/ddvergsten/XCodeProjects/RespondAR5-14-20PostMergeKEEP/RespondAR/SampleCode/SwiftSampleCode/SmartCam/SmartCam/LFClientWrapper2.h"
 //#include "/Users/ddvergsten/XCodeProjects/ParrotDemoB2/groundsdk/packages/groundsdk-ios/demo/GroundSdkDemo/LFClientWrapper.h"
+//=======
+////boost::shared_ptr<SViewData> _frameViewData;
+//>>>>>>> cd2cb4a4c0932f7f98aeaa0afc7d118a51099d3c
 extern boost::mutex sviewMutex;
 extern boost::shared_ptr<SViewData> _frameViewData;
 extern bool _viewDataInitialized;
@@ -427,7 +439,25 @@ Gles2Video::Gles2Video(Session *session,
 	unsigned int i;
 
     _lfClientEngine.InitShaders();
-
+//<<<<<<< HEAD
+//
+//=======
+////    _viewData.reset(new SViewData);
+////    _viewData->dfov = 45.0;
+////    _viewData->dFovVerticalAngle = 45.0;
+////    _viewData->dFovHorizontalAngle = 55.0;
+////    _viewData->dVehicleAltitude = 5000.0;
+////    //46.764594, -92.151235 Lincoln Park
+////    _viewData->dVehicleLat =46.764594;
+////    _viewData->dVehicleLon =-92.151235;
+////    _viewData->dCameraPitch = -30.0;
+////    _viewData->dCameraHeading = 0.0;
+////    _viewData->dCameraRoll = 0.0;
+////    _viewData->dVehiclePitch = 0.0;
+////    _viewData->dVehicleHeading = 0.0;
+////    _viewData->dVehicleRoll = 0.0;
+////    _viewData->dVehicldAltitudeAGL = 5000.0;
+//>>>>>>> cd2cb4a4c0932f7f98aeaa0afc7d118a51099d3c
     _lfClientEngine.Init();
 	mSession = session;
 	mMedia = NULL;
@@ -3055,6 +3085,7 @@ int Gles2Video::renderFrame(size_t framePlaneStride[3],
         }
 
         double delta = 200.0;
+//<<<<<<< HEAD
         //setXY2(3.45, 5.67);
         float fx = 0.0f;
         float fy = 0.0f;
@@ -3088,6 +3119,11 @@ int Gles2Video::renderFrame(size_t framePlaneStride[3],
             //in here check to see if user clicked the screen and getxy, for now just
             //print a message
             _lfClientEngine.Render(renderPos->x, (renderPos->height / 2.0) - (0.5 * vidH), renderPos->width , vidH, metaData);
+//=======
+//        if(_viewDataInitialized){
+////            _lfClientEngine.Render(0.0, 397.1 + delta, renderPos->width - 10.0, 1010.8 - (2 * delta), metaData);//GetViewData());
+//            _lfClientEngine.Render(renderPos->x, (renderPos->height / 2.0) - (0.5 * vidH), renderPos->width , vidH, metaData);//GetViewData());
+//>>>>>>> cd2cb4a4c0932f7f98aeaa0afc7d118a51099d3c
         }
         glBindBuffer(GL_ARRAY_BUFFER, val);
 		GLCHK(glDisableVertexAttribArray(

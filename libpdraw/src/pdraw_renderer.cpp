@@ -27,7 +27,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
+//#define USE_GLES2
 #include "pdraw_renderer.hpp"
 #include "pdraw_renderer_gles2.hpp"
 #include "pdraw_renderer_videocoreegl.hpp"
@@ -37,7 +37,7 @@
 #define ULOG_TAG pdraw_renderer
 #include <ulog.h>
 ULOG_DECLARE_TAG(pdraw_renderer);
-
+#include <iostream>
 namespace Pdraw {
 
 Renderer *Renderer::create(Session *session,
@@ -45,8 +45,11 @@ Renderer *Renderer::create(Session *session,
 			   IPdraw::VideoRendererListener *rndListener)
 {
 #if defined(USE_VIDEOCOREEGL)
+    std::cout<<"dgd using coregl"<<endl;
+    std::cout<<"dgd using coregl"<<endl;
 	return new VideoCoreEglRenderer(session, listener, rndListener);
 #elif defined(USE_GLES2)
+    std::cout<<"dgd using gles"<<std::endl;
 	return new Gles2Renderer(session, listener, rndListener);
 #else
 	return NULL;
